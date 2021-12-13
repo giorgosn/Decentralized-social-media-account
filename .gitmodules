@@ -1,0 +1,3 @@
+[submodule "scaffold-eth"]
+	path = scaffold-eth
+	url = https://github.com/austintgriffith/scaffold-eth.git
