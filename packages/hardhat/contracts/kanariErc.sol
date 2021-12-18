@@ -1,16 +1,15 @@
-pragma solidity ^0.6.0;
-
+pragma solidity ^0.8.4;
 // ----------------------------------------------------------------------------
 // ERC Token Standard #20 Interface
 //
 // ----------------------------------------------------------------------------
-contract ERC20Interface {
-    function totalSupply() public view returns (uint);
-    function balanceOf(address tokenOwner) public view returns (uint balance);
-    function allowance(address tokenOwner, address spender) public view returns (uint remaining);
-    function transfer(address to, uint tokens) public returns (bool success);
-    function approve(address spender, uint tokens) public returns (bool success);
-    function transferFrom(address from, address to, uint tokens) public returns (bool success);
+abstract contract ERC20Interface {
+    function totalSupply() virtual public view returns (uint);
+    function balanceOf(address tokenOwner) virtual public view returns (uint balance);
+    function allowance(address tokenOwner, address spender) virtual public view returns (uint remaining);
+    function transfer(address to, uint tokens)  virtual public returns (bool success);
+    function approve(address spender, uint tokens)  virtual public returns (bool success);
+    function transferFrom(address from, address to, uint tokens) virtual public returns (bool success);
 
     event Transfer(address indexed from, address indexed to, uint tokens);
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
@@ -56,32 +55,32 @@ contract KanariErc is ERC20Interface, SafeMath {
         emit Transfer(address(0), msg.sender, _totalSupply);
     }
 
-    function totalSupply() public view returns (uint) {
+    function totalSupply() public override view returns (uint) {
         return _totalSupply  - balances[address(0)];
     }
 
-    function balanceOf(address tokenOwner) public view returns (uint balance) {
+    function balanceOf(address tokenOwner) public override view returns (uint balance) {
         return balances[tokenOwner];
     }
 
-    function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
+    function allowance(address tokenOwner, address spender) public override view returns (uint remaining) {
         return allowed[tokenOwner][spender];
     }
 
-    function approve(address spender, uint tokens) public returns (bool success) {
+    function approve(address spender, uint tokens) public override returns (bool success) {
         allowed[msg.sender][spender] = tokens;
         emit Approval(msg.sender, spender, tokens);
         return true;
     }
 
-    function transfer(address to, uint tokens) public returns (bool success) {
+    function transfer(address to, uint tokens) public override returns (bool success) {
         balances[msg.sender] = safeSub(balances[msg.sender], tokens);
         balances[to] = safeAdd(balances[to], tokens);
         emit Transfer(msg.sender, to, tokens);
         return true;
     }
 
-    function transferFrom(address from, address to, uint tokens) public returns (bool success) {
+    function transferFrom(address from, address to, uint tokens) public override returns (bool success) {
         balances[from] = safeSub(balances[from], tokens);
         allowed[from][msg.sender] = safeSub(allowed[from][msg.sender], tokens);
         balances[to] = safeAdd(balances[to], tokens);
