@@ -23,6 +23,12 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     // args: [ "Hello", ethers.utils.parseEther("1.5") ],
     log: true,
   });
+  await deploy("KanariToken", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    args: [ "KanariToken", "KNR" ],
+    log: true,
+  });
 
   // Getting a previously deployed contract
   const YourContract = await ethers.getContract("YourContract", deployer);
@@ -61,14 +67,14 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   // Verify your contracts with Etherscan
   // You don't want to verify on localhost
-  if (chainId !== localChainId) {
-    // wait for etherscan to be ready to verify
-    await sleep(15000);
-    await run("verify:verify", {
-      address: YourContract.address,
-      contract: "contracts/YourContract.sol:YourContract",
-      contractArguments: [],
-    });
-  }
+  // if (chainId !== localChainId) {
+  //   // wait for etherscan to be ready to verify
+  //   await sleep(15000);
+  //   await run("verify:verify", {
+  //     address: YourContract.address,
+  //     contract: "contracts/YourContract.sol:YourContract",
+  //     contractArguments: [],
+  //   });
+  // }
 };
-module.exports.tags = ["YourContract"];
+module.exports.tags = ["YourContract","KanariToken"];
