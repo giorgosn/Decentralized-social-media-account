@@ -22,7 +22,7 @@ git clone https://github.com/austintgriffith/scaffold-eth.git
 > install and start your 👷‍ Hardhat chain:
 
 ```bash
-cd scaffold-eth
+cd packages
 yarn install
 yarn chain
 ```
@@ -30,15 +30,23 @@ yarn chain
 > in a second terminal window, start your 📱 frontend:
 
 ```bash
-cd scaffold-eth
+cd packages
 yarn start
 ```
 
 > in a third terminal window, 🛰 deploy your contract:
 
 ```bash
-cd scaffold-eth
+cd packages
 yarn deploy
+```
+
+> in a fourth terminal window, start your server:
+
+```bash
+cd packages/server
+yarn install
+yarn start
 ```
 
 🌍 You need an RPC key for production deployments/Apps, create an [Alchemy](https://www.alchemy.com/) account and replace the value of `ALCHEMY_KEY = xxx` in `packages/react-app/src/constants.js`
