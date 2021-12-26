@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This directory contains the back-end code for decentrailized social media account. And will deal with all webhooks and social media push",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon ./server/server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giorgosn/Decentralized-social-media-account.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giorgosn/Decentralized-social-media-account/issues"
+  },
+  "homepage": "https://github.com/giorgosn/Decentralized-social-media-account#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
