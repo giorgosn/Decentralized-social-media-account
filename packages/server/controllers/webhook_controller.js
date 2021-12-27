@@ -8,7 +8,7 @@ module.exports = {
         else res.status(404).json({message: 'Unknown soure. This source is not yet supported'})
         console.log("-------------------------------");
 
-        console.log(req);
+        console.log(req.body);
         console.log("-------------------------------");
        
     },
@@ -19,7 +19,7 @@ module.exports = {
         res.status(200).json('Received successfully');
         console.log("-------------------------------");
 
-        console.log(req);
+        console.log(req.body);
         console.log("-------------------------------");
     }
 
