@@ -17,6 +17,10 @@ module.exports = {
         const source = req.params.source;
         console.log(`Received the following event from ${source}`);
         res.status(200).json('Received successfully');
+        console.log("-------------------------------");
+
+        console.log(req);
+        console.log("-------------------------------");
     }
 
 }
