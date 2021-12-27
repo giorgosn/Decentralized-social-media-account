@@ -6,6 +6,10 @@ module.exports = {
             res.status(200).json({message: 'Successfully recieved event from snaphot'})
         }
         else res.status(404).json({message: 'Unknown soure. This source is not yet supported'})
+        console.log("-------------------------------");
+
+        console.log(req);
+        console.log("-------------------------------");
        
     },
 
