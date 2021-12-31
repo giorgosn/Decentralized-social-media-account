@@ -67,3 +67,6 @@ yarn-error.log*
 
 # doc directory
 /doc
+
+# ignore logs
+packages/server/logs/*
