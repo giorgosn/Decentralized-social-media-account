@@ -1,5 +1,6 @@
 
 const winston = require('winston');
+const twitterHelper = require('../utils/twitter_utils');
 const logConfiguration = {
     'transports': [
         new winston.transports.Console(),
@@ -13,16 +14,13 @@ module.exports = {
 
     postEvent: async function (req, res) {
         const source = req.params.source || null;
-        if(source!=null && source==="snapshot") {
+        logger.info('Hello, Winston! Test');
+        logger.info(`This is the tweet: ${req.body.message}`);
+        if(source!=null && source==="snapshot" && req.body.message!=null) {
+            await twitterHelper.postTweet(req.body.message);
             res.status(200).json({message: 'Successfully recieved event from snaphot'})
         }
         else res.status(404).json({message: 'Unknown soure. This source is not yet supported'})
-
-        logger.info('Hello, Winston! Test');
-        logger.info(req);
-
-
-        // console.log(req.body);
 
        
     },
