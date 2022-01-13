@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContractReader } from "eth-hooks";
 import { ethers } from "ethers";
-import snapshot from '@snapshot-labs/snapshot.js';
+// import snapshot from '@snapshot-labs/snapshot.js';
 
 /**
  * web3 props can be passed from '../App.jsx' into your local view component for use
@@ -15,7 +15,7 @@ function Snapshot({ yourLocalBalance, readContracts }) {
   // in this case, let's keep track of 'purpose' variable from our contract
   const purpose = useContractReader(readContracts, "YourContract", "purpose");
   const hub = 'https://hub.snapshot.org'; // or https://testnet.snapshot.org for testnet
-  const client = new snapshot.Client712(hub);
+  // const client = new snapshot.Client712(hub);
   console.log(client);
 
   return (
