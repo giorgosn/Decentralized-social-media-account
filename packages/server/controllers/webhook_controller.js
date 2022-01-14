@@ -2,8 +2,9 @@
 const winston = require('winston');
 const twitterHelper = require('../utils/twitter_utils');
 const logConfiguration = {
+
     'transports': [
-        new winston.transports.Console(),
+        new winston.transports.Console({'timestamp':true}),
         new winston.transports.File({ filename: 'logs/webhook.log' })
     ]
 };
