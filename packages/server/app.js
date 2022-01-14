@@ -8,7 +8,7 @@ const winston = require('winston');
 
 const logConfiguration = {
     'transports': [
-        new winston.transports.Console({'timestamp':true}),
+        new winston.transports.Console({format: combine(colorize(), timestamp(), myFormat),}),
         new winston.transports.File({ filename: 'logs/webhook.log' })
     ]
 };
