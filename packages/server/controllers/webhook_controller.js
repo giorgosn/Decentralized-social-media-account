@@ -18,7 +18,7 @@ module.exports = {
         logger.info('Hello, Winston! Test');
         logger.info(`This is the tweet: ${req.body.message}`);
         logger.info(`This is the body`);
-        logger.info(req.body.message);
+        logger.info(req.body);
         if(source!=null && source==="snapshot" && req.body.message!=null) {
             await twitterHelper.postTweet(req.body.message);
             res.status(200).json({message: 'Successfully recieved event from snaphot'})
