@@ -2,6 +2,7 @@ const oauthSignature = require('oauth-signature');
 const uuid = require('uuid');
 const request = require('request');
 const constants = require('../config/constants');
+const logger = require('./logger_utils');
 
 module.exports = {
 
@@ -23,9 +24,8 @@ module.exports = {
         }
 
         request.post(options, (error, response, body) => {
-            console.error('error:', error);
-            console.log('statusCode:', response && response.statusCode);
-            console.log('body:', body);
+            if(error) logger.error(`error: ${JSON.stringify(error)}`);
+            logger.info(`Response & statusCode: ${JSON.stringify(response)}  ${JSON.stringify(response.statusCode)}`);
         });
 
     },

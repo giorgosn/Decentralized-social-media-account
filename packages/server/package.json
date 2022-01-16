@@ -19,6 +19,7 @@
   "homepage": "https://github.com/giorgosn/Decentralized-social-media-account#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "graphql-request": "^3.7.0",
     "oauth-signature": "^1.5.0",
     "winston": "^3.3.3"
   }
