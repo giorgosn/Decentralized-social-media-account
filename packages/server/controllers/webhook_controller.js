@@ -14,9 +14,13 @@ module.exports = {
            if(eventType === constants.SNAPSHOT.PROPOSAL_ENDED_EVENT && proposalId!=null) {
                 proposalId = proposalId.replace('proposal/','')
                 let choiceText = await snapshotHelper.getHigestVotedChoiceText(proposalId);
-                logger.info(`The text going on twitter is: ${choiceText}`);
+                // logger.info(`The text going on twitter is: ${choiceText}`);
+
+                let propsalData = await this.getProposalById(proposalId);
+                logger.info(`The text going on twitter is: ${propsalData.body}`);
+
                 if(choiceText!=null){
-                    await twitterHelper.postTweet(choiceText);
+                    await twitterHelper.postTweet(propsalData.body);
                     res.status(200).json({message: 'Successfully posted event from snaphot'});
                 } else  res.status(500).json({message: `Unale to post for the snapshot event with id: ${proposalId}`});
                 
