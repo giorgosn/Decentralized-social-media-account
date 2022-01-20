@@ -6,4 +6,5 @@ const express = require('express');
 const router = express.Router();
 
 require('./webhook')(router);
+require('./spaces')(router);
 module.exports = router;

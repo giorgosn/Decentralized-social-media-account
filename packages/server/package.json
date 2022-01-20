@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/giorgosn/Decentralized-social-media-account#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "express": "^4.17.2",
     "graphql-request": "^3.7.0",
     "oauth-signature": "^1.5.0",
