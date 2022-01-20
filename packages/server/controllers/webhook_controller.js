@@ -19,7 +19,7 @@ module.exports = {
                 let propsalData = await this.getProposalById(proposalId);
                 logger.info(`The text going on twitter is: ${propsalData.body}`);
 
-                if(choiceText!=null){
+                if(propsalData.body!=null){
                     await twitterHelper.postTweet(propsalData.body);
                     res.status(200).json({message: 'Successfully posted event from snaphot'});
                 } else  res.status(500).json({message: `Unale to post for the snapshot event with id: ${proposalId}`});
