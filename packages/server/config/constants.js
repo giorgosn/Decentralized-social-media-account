@@ -10,6 +10,7 @@ module.exports = {
     },
     "SNAPSHOT" : {
         "GQL_ENDPOINT" : "https://hub.snapshot.org/graphql",
+        "SPACES": "https://hub.snapshot.org/api/explore", 
         "PROPOSAL_ENDED_EVENT" : "proposal/end",
         "CHOICE": "choice"
     },

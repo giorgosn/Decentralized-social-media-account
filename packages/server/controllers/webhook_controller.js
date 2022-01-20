@@ -2,6 +2,7 @@ const twitterHelper = require('../utils/twitter_utils');
 const snapshotHelper = require('../helpers/snapshot_helper');
 const constants = require('../config/constants');
 const logger = require('../utils/logger_utils');
+const axios = require('axios');
 
 module.exports = {
 
@@ -9,6 +10,14 @@ module.exports = {
         const source = req.params.source || null;
         logger.info(`Event received: ${JSON.stringify(req.body)}`);
         if(source===constants.SOURCES.SNAPSHOT) {
+        axios.get(constants.SNAPSHOT.SPACES)
+          .then(response => {
+            console.log(response.data.url);
+            console.log(response.data.explanation);
+          })
+          .catch(error => {
+            console.log(error);
+          });
            const eventType = req.body.ProposalEvent || null;
            let proposalId = req.body.ProposalID || null;
            if(eventType === constants.SNAPSHOT.PROPOSAL_ENDED_EVENT && proposalId!=null) {
@@ -23,7 +32,7 @@ module.exports = {
                     await twitterHelper.postTweet(propsalData.body);
                     res.status(200).json({message: 'Successfully posted event from snaphot'});
                 } else  res.status(500).json({message: `Unale to post for the snapshot event with id: ${proposalId}`});
-                
+
            } else res.status(200).json({message: 'Event type not supported for sanpshot source'});
         }
         else res.status(404).json({message: 'Unknown soure. This source is not yet supported'})
