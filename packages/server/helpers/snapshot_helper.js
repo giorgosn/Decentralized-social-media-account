@@ -8,19 +8,16 @@ module.exports = {
   getHigestVotedChoiceText: async function (proposalId) {
     const voteByChoice = await this.getVoteByChoice(proposalId);
     if (voteByChoice.size === 0) return null;
-    let maxVotes = 0, selectedChoie;
-    voteByChoice.forEach((value, key) => {
-      if (maxVotes < value) {
-        maxVotes = value;
-        selectedChoie = key;
-      }
-    });
-    logger.info(`Selected choice is ${selectedChoie} by vote ${maxVotes}`);
-    const propsalData = await this.getProposalById(proposalId);
-    logger.info(`Proposal Data: ${JSON.stringify(propsalData)}`);
-    if("proposals" in propsalData && "choices" in propsalData.proposals[0]) {
-      return propsalData.proposals[0].choices[selectedChoie-1];
-    } else return null;
+    const isPost =  voteByChoice.get(1) > voteByChoice.get(2) ? true : false;
+    logger.info(`Going to post:  ${isPost}`);
+    if(isPost) {
+      const propsalData = await this.getProposalById(proposalId);
+      logger.info(`Proposal Data: ${JSON.stringify(propsalData)}`);
+      if("proposals" in propsalData && "title" in propsalData.proposals[0]) {
+        return propsalData.proposals[0].title;
+      } else return null;
+    }
+    else return null;
   },
 
   getVoteByChoice: async function (proposalId) {
