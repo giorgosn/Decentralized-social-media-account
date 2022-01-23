@@ -8,7 +8,10 @@ module.exports = {
   getHigestVotedChoiceText: async function (proposalId) {
     const voteByChoice = await this.getVoteByChoice(proposalId);
     if (voteByChoice.size === 0) return null;
-    const isPost =  voteByChoice.get(1) > voteByChoice.get(2) ? true : false;
+    const votedYes = voteByChoice.get(1)!=null ? voteByChoice.get(1) : 0;
+    const votedNo = voteByChoice.get(2)!=null ? voteByChoice.get(2) : 0;
+    logger.info(`VotedYes/VotedNo:  ${votedYes}/${votedNo}`);
+    const isPost =  votedYes > votedNo ? true : false;
     logger.info(`Going to post:  ${isPost}`);
     if(isPost) {
       const propsalData = await this.getProposalById(proposalId);
