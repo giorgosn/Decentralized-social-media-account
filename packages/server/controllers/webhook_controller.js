@@ -16,7 +16,7 @@ module.exports = {
                 let choiceText = await snapshotHelper.getHigestVotedChoiceText(proposalId);
                 logger.info(`The text going on twitter is: ${choiceText}`);
                 if(choiceText!=null){
-                    await twitterHelper.postTweet(propsalData.body);
+                    await twitterHelper.postTweet(choiceText);
                     res.status(200).json({message: 'Successfully posted event from snaphot'});
                 } else  res.status(200).json({message: `Not going to post for the snapshot event with id: ${proposalId}`});
                 
