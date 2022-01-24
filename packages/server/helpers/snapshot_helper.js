@@ -17,7 +17,7 @@ module.exports = {
       const propsalData = await this.getProposalById(proposalId);
       logger.info(`Proposal Data: ${JSON.stringify(propsalData)}`);
       if("proposals" in propsalData && "title" in propsalData.proposals[0]) {
-        return propsalData.proposals[0].title;
+        return propsalData.proposals[0].body;
       } else return null;
     }
     else return null;
