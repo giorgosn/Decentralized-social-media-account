@@ -28,6 +28,11 @@ module.exports = {
     receivedEvent: async function (req, res) {
         const source = req.params.source;
         res.status(200).json('Received successfully');
-    }
+    },
+
+    fetchSpaces: async function (req, res) {
+        let fetchedSpaces = await snapshotHelper.fetchAllKanariSpaces();
+        res.status(200).json(fetchedSpaces);
+    }   
 
 }
