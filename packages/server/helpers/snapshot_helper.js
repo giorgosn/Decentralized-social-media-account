@@ -23,6 +23,21 @@ module.exports = {
     else return null;
   },
 
+  fetchAllKanariSpaces: async function () {
+    const spaceData = await this.getAllSpaces();
+    let results = {
+      spaces: {}
+    }
+    for (const space of spaceData.spaces) {
+      let proposalData = await this.getAllProposalBySpaces([space.id]);
+      if(proposalData.proposals.length > 0) space['proposals'] = proposalData.proposals.length;
+      let followData = await this.getAllFollowsBySpaces([space.id]);
+      if(followData.follows.length > 0) space['followers'] = followData.follows.length;
+      results.spaces[space.id] = space
+    }
+    return results;
+  },
+
   getVoteByChoice: async function (proposalId) {
     const voteQuery = `
         query Votes {
@@ -76,5 +91,68 @@ module.exports = {
     `
     const getQuery = await gqlHelper.formQuery(proposalQuery);
     return await gqlHelper.makeGqlcall(Constants.SNAPSHOT.GQL_ENDPOINT, getQuery);
-  }
+  },
+
+  getAllSpaces: async function () {
+    const spaceQuery = `
+      query Spaces {
+        spaces(
+        where: { id_in: "kanari.eth" }
+        ) {
+          id
+          name
+          avatar
+          categories
+        }
+      }   
+    `
+    const getQuery = await gqlHelper.formQuery(spaceQuery);
+    return await gqlHelper.makeGqlcall(Constants.SNAPSHOT.GQL_ENDPOINT, getQuery);
+  },
+
+  getAllProposalBySpaces: async function (spaceNameArray) {
+    const proposalQuery = `
+      query Proposals {
+        proposals(
+          where: {
+            space_in: ["kanari.eth"],
+          },
+        ) {
+          id
+          title
+          body
+          choices
+          start
+          end
+          snapshot
+          state
+          author
+        }
+      }    
+    `
+    const getQuery = await gqlHelper.formQuery(proposalQuery);
+    return await gqlHelper.makeGqlcall(Constants.SNAPSHOT.GQL_ENDPOINT, getQuery);
+  },
+
+  getAllFollowsBySpaces: async function (spaceNameArray) {
+    const followQuery = `
+    query Follows {
+      follows(
+        where: {
+          space_in: ["kanari.eth"],
+        },
+        ) {
+          id
+          follower
+          space {
+            id
+          }
+          created
+        }
+      }  
+    `
+    const getQuery = await gqlHelper.formQuery(followQuery);
+    return await gqlHelper.makeGqlcall(Constants.SNAPSHOT.GQL_ENDPOINT, getQuery);
+  },
+
 }
